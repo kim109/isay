@@ -1,0 +1,25 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css');
+
+html, body {height: 100%; margin: 0; padding: 0;} 
+body {background-color: #000;}
+*html .container {
+    height:100%;
+}
+#container {
+    border: 1px solid #f58220;
+    height: 100%;
+}
+.wrap_candle {
+    height: 100%;
+}
+.wrap_candle img {
+    margin-top: 50px;
+}
+
+.wrap_button {
+    /*height: 20%;*/
+    margin: 20px 0;
+}
+#total {display: block; color: #f58220; position: absolute; top: 10px; left: 10px; font-size: 30px;}
+#enter {position: absolute; bottom: 30px; right: 30px; width: 50px; height: 50px;}
