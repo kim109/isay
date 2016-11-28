@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Redis;
+use App\Member;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,7 +29,26 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function () {
-//                DB::table('recent_users')->delete();
+            $member = new Member;
+
+            $member->date = new \DateTime('yesterday midnight');
+            $member->Total = Redis::sCard('Total');
+            $member->HotPlace = Redis::sCard('HotPlace');
+
+            foreach (Redis::keys('Korea:*') as $key) {
+                $location = str_replace('Korea:', '', $key);
+                $member->$location = Redis::sCard($key);
+            }
+
+            $world = array();
+            foreach (Redis::keys('World:*') as $key) {
+                $location = str_replace('World:', '', $key);
+                $world[] = [$location => Redis::sCard($key)];
+            }
+            $member->World = json_encode($world);
+            $member->Info = json_encode(Redis::hGetAll('MemberInfo'));
+
+            $member->save();
         })->daily();
     }
 

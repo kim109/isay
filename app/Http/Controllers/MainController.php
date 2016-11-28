@@ -46,8 +46,8 @@ class MainController extends Controller
         }
 
         $id = $request->input('id');
-        $country = $request->input('location.country');
-        if ($country == 'South Korea' || $country == 'Republic of Korea') {
+        $country = $request->input('location.country') == 'Republic of Korea' ? 'South Korea' : $request->input('location.country');
+        if ($country == 'South Korea') {
             $state = $request->input('location.state');
         }
         $gender = $request->input('gender');
@@ -63,7 +63,7 @@ class MainController extends Controller
         // 지역 정보
         $key = 'World:'.$country;
         Redis::sAdd($key, $id);
-        if ($country == 'South Korea' || $country == 'Republic of Korea') {
+        if ($country == 'South Korea') {
             $key = 'Korea:'.$state;
             Redis::sAdd($key, $id);
         }
