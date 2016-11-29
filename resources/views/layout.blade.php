@@ -44,7 +44,9 @@
       </ul>
 
       <div id="share">
-        <div class="fb-share-button" data-href="http://ec2-52-78-247-60.ap-northeast-2.compute.amazonaws.com/report/korea/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fec2-52-78-247-60.ap-northeast-2.compute.amazonaws.com%2Freport%2Fkorea%2F&amp;src=sdkpreparse">공유하기</a></div>
+        <div class="fb-share-button" data-href="{{ Request::url() }}" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+          <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::url()) }}&amp;src=sdkpreparse">공유하기</a>
+        </div>
       </div>
       <div style="margin:2vh 0;">
         {{ date('m/d H:i') }} 현재<br>

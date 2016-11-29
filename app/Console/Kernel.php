@@ -49,6 +49,8 @@ class Kernel extends ConsoleKernel
             $member->Info = json_encode(Redis::hGetAll('MemberInfo'));
 
             $member->save();
+
+            Redis::FlushDB();
         })->daily();
     }
 
