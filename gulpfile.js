@@ -14,7 +14,6 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix => {
-    mix.scripts('report.js')
     mix.scripts('report/korea.js')
         .version('js/korea.js');
 

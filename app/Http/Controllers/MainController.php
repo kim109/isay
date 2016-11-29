@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Redis;
+use App\JoinIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,13 +53,20 @@ class MainController extends Controller
         }
         $gender = $request->input('gender');
         $age = $request->input('age');
-
+        $comment = $request->input('comment');
         $hotplace = $request->input('hotplace');
+
+        $db = new JoinIn;
 
         if (Redis::sAdd('Total', $id) == 0) {
             $old_key = Redis::hGet('MemberInfo', $id);
             Redis::sRem($old_key, $id);
+
+            $db = JoinIn::where('device_id', $id)->where('created_at', '>=', date('Y-m-d'))->first();
         }
+
+        $db->device_id = $id;
+        $db->country = $country;
 
         // 지역 정보
         $key = 'World:'.$country;
@@ -66,6 +74,8 @@ class MainController extends Controller
         if ($country == 'South Korea') {
             $key = 'Korea:'.$state;
             Redis::sAdd($key, $id);
+
+            $db->state = $state;
         }
 
         if ($hotplace) {
@@ -73,6 +83,13 @@ class MainController extends Controller
         } else {
             Redis::sRem('HotPlace', $id);
         }
+        $db->hotplace = $hotplace;
+
+        $db->gender = $gender;
+        $db->age = $age;
+        $db->comment = $comment;
+
+        $db->save();
 
         Redis::hSet('MemberInfo', $id, $key);
 
