@@ -55,7 +55,7 @@
 
       @yield('content')
       <div class="text-center">
-        <a class="btn btn-default" href="https://play.google.com/store/apps/details?id=kr.co.wish.everyone" target="_blnak" role="button">
+        <a class="btn btn-default" href="https://play.google.com/store/apps/details?id=kr.co.wish.everyone" target="_blank" role="button">
             <i class="fa fa-android" aria-hidden="true"></i> 안드로이드 투표하기
         </a>
         <a class="btn btn-default" href="/isay" role="button">
